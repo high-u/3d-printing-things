@@ -159,22 +159,22 @@ if (isTablet) {
 
 module bar(len) {
   hull() {
-    translate([0, 8, 0])
+    translate([0, 12, 0])
     nodeS();
-    translate([0, 0, 0])
+    translate([0, 12, 0])
     nodeS();
   }
   hull() {
-    translate([0, 8, 0])
+    translate([0, 12, 0])
     nodeS();
-    translate([0, 8, len - 10])
+    translate([0, 12, len - 10])
     nodeS();
   }
   hull() {
 
-    translate([0, 8, len - 10])
+    translate([0, 12, len - 10])
     nodeS();
-    translate([0, 0, len - 10])
+    translate([0, 12, len - 10])
     nodeS();
   }
   hull() {
@@ -186,7 +186,7 @@ module bar(len) {
 }
 
 // 柱
-union() {
+module leg() {
   len = 80;
   hull() {
     translate([0, 8, 0])
@@ -206,36 +206,64 @@ union() {
     translate([0, 0, len - 10])
     nodeS();
   }
+
+  module x(h) {
+    hull() {
+      translate([0, 0, h])
+      nodeS();
+      translate([0, 8, h])
+      nodeS();
+    }
+  }
+  x(24);
+  x(48);
+  // x(50);
+  
 }
+leg();
 
 // 底
-union() {
+module foot() {
   len = 96;
   hull() {
-    translate([0, len - 4, 0])
+    translate([0, len, 0])
     nodeS();
     translate([0, 0, 0])
     nodeS();
   }
   hull() {
-    translate([0, len - 4, 0])
+    translate([0, len, 0])
     nodeS();
-    translate([0, len - 4, 8])
+    translate([0, len - 8, 8])
     nodeS();
   }
   hull() {
-    translate([0, len - 4, 8])
+    translate([0, len - 8, 8])
     nodeS();
     translate([0, 8, 8])
     nodeS();
   }
   hull() {
-    translate([0, 8, 0])
+    translate([0, 0, 0])
     nodeS();
     translate([0, 8, 8])
     nodeS();
   }
+
+  module x(y) {
+    hull() {
+      translate([0, y, 0])
+      nodeS();
+      translate([0, y, 8])
+      nodeS();
+    }
+  }
+  x(24);
+  x(48);
+  x(72);
+  // x(96);
 }
+foot();
 
 // 手
 translate([0, 0, 70])
@@ -243,14 +271,71 @@ rotate([-30, 0, 0])
 union() {
   translate([0, 0, 8])
   rotate([-90, 0, 0])
-  #bar(34);
+  // #bar(34);
+  union () {
+    len = 34;
+    hull() {
+      translate([0, 8, 0])
+      nodeS();
+      translate([0, 0, 0])
+      nodeS();
+    }
+    hull() {
+      translate([0, 8, 0])
+      nodeS();
+      translate([0, 8, len - 10])
+      nodeS();
+    }
+    hull() {
+      translate([0, 8, len - 10])
+      nodeS();
+      translate([0, 0, len - 10])
+      nodeS();
+    }
+    hull() {
+      translate([0, 0, 0])
+      nodeS();
+      translate([0, 0, len - 10])
+      nodeS();
+    }
+  }
+
+
+
   // bar(34);
   translate([0, 16, 8])
   difference() {
     union() {
-      bar(60);
+      // bar(60);
+      union() {
+        len = 60;
+        // #hull() {
+        //   translate([0, 8, 0])
+        //   nodeS();
+        //   translate([0, 8, 0])
+        //   nodeS();
+        // }
+        hull() {
+          translate([0, 8, 0])
+          nodeS();
+          translate([0, 8, len - 10])
+          nodeS();
+        }
+        // hull() {
+        //   translate([0, 12, len - 10])
+        //   nodeS();
+        //   translate([0, 12, len - 10])
+        //   nodeS();
+        // }
+        hull() {
+          translate([0, 0, 0])
+          nodeS();
+          translate([0, 0, len - 10])
+          nodeS();
+        }
+      }
       translate([0, 4, 14])
-      cube([4 - clearance, 8, 24], center = true);  // 24
+      cube([4 - clearance, 8, 26], center = true);  // 24
     }
     translate([0, 4, 45])
     cube([8, 4, 40], center = true);
@@ -263,9 +348,7 @@ union() {
   }
 }
 
-
 translate([0, -20, 0])
-
 difference() {
   union() {
     w = 100;
